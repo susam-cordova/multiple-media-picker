@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.erikagtierrez.multiple_media_picker.Calculators.ThumbSize.countThumbRows;
+import static com.erikagtierrez.multiple_media_picker.Calculators.ThumbSize.getThumbSizePx;
+
 public class OneFragment extends Fragment{
     private static RecyclerView recyclerView;
     private BucketsAdapter mAdapter;
@@ -55,8 +58,13 @@ public class OneFragment extends Fragment{
     }
 
     private void populateRecyclerView() {
-        mAdapter = new BucketsAdapter(bucketNames,bitmapList,getContext());
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(),3);
+        int rowsCount = countThumbRows(getContext(), getResources());
+        //int thumbWidth = getThumbSizePx(getResources());
+        //int thumbHeight = getThumbSizePx(getResources());
+
+        mAdapter = new BucketsAdapter(bucketNames,bitmapList,getContext()/*, thumbWidth, thumbHeight*/);
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(),rowsCount);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);

@@ -31,6 +31,8 @@ public class Gallery extends AppCompatActivity {
     public static String title;
     public static int maxSelection;
     public static int mode;
+    public static String imagesTitle;
+    public static String videosTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,9 @@ public class Gallery extends AppCompatActivity {
         maxSelection=getIntent().getExtras().getInt("maxSelection");
         if (maxSelection==0) maxSelection = Integer.MAX_VALUE;
         mode=getIntent().getExtras().getInt("mode");
+        imagesTitle=getIntent().getExtras().getString("imagesTitle");
+        videosTitle=getIntent().getExtras().getString("videosTitle");
+
         setTitle(title);
         selectionTitle=0;
 
@@ -86,10 +91,10 @@ public class Gallery extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         if(mode==1 || mode==2) {
-            adapter.addFragment(new OneFragment(), "Images");
+            adapter.addFragment(new OneFragment(), imagesTitle);
         }
         if(mode==1||mode==3)
-        adapter.addFragment(new TwoFragment(), "Videos");
+        adapter.addFragment(new TwoFragment(), videosTitle);
         viewPager.setAdapter(adapter);
     }
 

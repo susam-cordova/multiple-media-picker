@@ -15,10 +15,11 @@ import android.view.WindowManager;
 import com.erikagtierrez.multiple_media_picker.Adapters.MediaAdapter;
 import com.erikagtierrez.multiple_media_picker.Fragments.OneFragment;
 import com.erikagtierrez.multiple_media_picker.Fragments.TwoFragment;
-import com.erikagtierrez.multiple_media_picker.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.erikagtierrez.multiple_media_picker.Calculators.ThumbSize.countThumbRows;
 
 public class OpenGallery extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -70,6 +71,8 @@ public class OpenGallery extends AppCompatActivity {
 
 
     private void populateRecyclerView() {
+        int rowsCount = countThumbRows(getApplicationContext(), getResources());
+
         for (int i = 0; i < selected.size(); i++) {
             if (imagesSelected.contains(mediaList.get(i))) {
                 selected.set(i, true);
@@ -78,7 +81,7 @@ public class OpenGallery extends AppCompatActivity {
             }
         }
         mAdapter = new MediaAdapter(mediaList, selected, getApplicationContext());
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), rowsCount);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.getItemAnimator().setChangeDuration(0);
         recyclerView.setAdapter(mAdapter);
